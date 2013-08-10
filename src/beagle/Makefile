@@ -86,6 +86,7 @@ build:
 	  export CFLAGS="$(COMPILE_FLAGS)"; \
 	  export CXX=$(CXXCOMP); \
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
+          export CPPFLAGS=-I/opt/gnu/include; \
           $(COMPILERSETUP); \
 	  cd $(SOURCE) ; \
 	  sh ./autogen.sh ; \
