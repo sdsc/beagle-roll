@@ -58,7 +58,7 @@ ROLLCOMPILER = intel
 ROLLNETWORK = ib
 ROLLMPI = mvapich2
 
-PKGROOT = /opt/beagle/$(VERSION)
+PKGROOT = /opt/beagle/v1.1
 SOURCE = beagle-$(VERSION)
 REDHAT.ROOT = $(PWD)/../../
 RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
@@ -70,14 +70,12 @@ COMPILERSETUP = \
     . /etc/profile.d/modules.sh; \
     latestModule=`module avail 2>&1 | grep -o '$(ROLLCOMPILER)/[^ (]*' | sed 's/$(ROLLCOMPILER).//' | sort -t. -k1,1n -k2,2n -k3,3n | tail -1`; \
     module load $(ROLLCOMPILER)/$${latestModule}; \
-    module load gnubase; \
   fi
 
-CONFIG_OPTIONS = --enable-sse
-COMPILE_FLAGS = -O2
+CONFIG_OPTIONS = --enable-sse=yes --enable-openmp=no
+COMPILE_FLAGS = -xhost -lstdc++
 CCOMP = icc
 CXXCOMP = icpc
-COMPILE_FLAGS = -O3 -fp-model precise -prec_div -prec_sqrt -ftz -xHOST
 
 build:
 	tar zxvf $(SOURCE).tar.gz
@@ -86,10 +84,7 @@ build:
 	  export CFLAGS="$(COMPILE_FLAGS)"; \
 	  export CXX=$(CXXCOMP); \
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
-          export CPPFLAGS=-I/opt/gnu/include; \
-          $(COMPILERSETUP); \
 	  cd $(SOURCE) ; \
-	  sh ./autogen.sh ; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib $(CONFIG_OPTIONS);  \
 	  make \
 	)

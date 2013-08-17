@@ -3,7 +3,8 @@ module-whatis "beagle"
 module-whatis "Version: VERSION"
 module-whatis "Description: beagle"
 module-whatis "Compiler: intel"
-set BEAGLE /opt/beagle/VERSION
-set BEAGLE_LIB /opt/beagle/VERSION/lib
-prepend-path LD_LIBRARY_PATH $BEAGLE_LIB
-prepend-path LIBPATH $BEAGLE_LIB
+set beaglehome /opt/beagle/v1.1
+setenv BEAGLE $beaglehome
+setenv BEAGLE_HOME $beaglehome
+prepend-path LD_LIBRARY_PATH $beaglehome/lib
+prepend-path LIBPATH $beaglehome/lib
