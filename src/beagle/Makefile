@@ -64,6 +64,7 @@ REDHAT.ROOT = $(PWD)/../../
 RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
 
 -include $(ROCKSROOT)/etc/Rules.mk
+include pull.mk
 
 COMPILERSETUP = \
   if test -e /etc/profile.d/modules.sh; then \
@@ -77,7 +78,7 @@ COMPILE_FLAGS = -xhost -lstdc++
 CCOMP = icc
 CXXCOMP = icpc
 
-build:
+build: $(SRC_DIRS)
 	tar zxvf $(SOURCE).tar.gz
 	( \
 	  export CC=$(CCOMP); \
