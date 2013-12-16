@@ -67,11 +67,7 @@ To install, execute these instructions on a Rocks frontend:
 % rocks run roll beagle | bash
 ```
 
-Note that the optimization techniques used by ATLAS dictate only installing
-the package on systems with the same architecture and configuration as the
-build machine.
-
-In addition to the software itself, the roll installs ATLAS environment module
+In addition to the software itself, the roll installs BEAGLE environment module
 files in:
 
 ```shell
