@@ -1,0 +1,10 @@
+--- beagle-1.1/libhmsbeagle/CPU/Precision.h	2013-08-14 12:06:28.000000000 -0700
++++ patch-files/Precision_CPU.h	2014-01-29 14:03:54.000000000 -0800
+@@ -9,6 +9,7 @@
+ #define PRECISION_H_
+ 
+ #define DOUBLE_PRECISION (sizeof(REALTYPE) == 8)
++#include <string.h>
+ 
+ template<typename T, typename F> 
+ inline void beagleMemCpy( T* to, F* from, unsigned int length )

@@ -3,11 +3,12 @@
 #
 # @Copyright@
 # 
-# 				Rocks(tm)
+# 				Rocks(r)
 # 		         www.rocksclusters.org
-# 		        version 4.3 (Mars Hill)
+# 		         version 5.6 (Emerald Boa)
+# 		         version 6.1 (Emerald Boa)
 # 
-# Copyright (c) 2000 - 2011 The Regents of the University of California.
+# Copyright (c) 2000 - 2013 The Regents of the University of California.
 # All rights reserved.	
 # 
 # Redistribution and use in source and binary forms, with or without
@@ -25,7 +26,7 @@
 # 3. All advertising and press materials, printed or electronic, mentioning
 # features or use of this software must display the following acknowledgement: 
 # 
-# 	"This product includes software developed by the Rocks(tm)
+# 	"This product includes software developed by the Rocks(r)
 # 	Cluster Group at the San Diego Supercomputer Center at the
 # 	University of California, San Diego and its contributors."
 # 
@@ -54,17 +55,36 @@
 # 
 # @Copyright@
 #
+# $Log$
+#
+
+ifndef ROLLCOMPILER
+  ROLLCOMPILER = gnu
+endif
 
 -include $(ROLLSROOT)/etc/Rolls.mk
+include Rolls.mk
 
-default: roll
+default:
+	for i in `ls nodes/*.in`; do \
+	  export o=`echo $$i | sed 's/\.in//'`; \
+	  cp $$i $$o; \
+	  for c in $(ROLLCOMPILER); do \
+	    perl -pi -e 'print and s/ROLLCOMPILER/'$${c}'/g if m/ROLLCOMPILER/' $$o; \
+	  done; \
+	  perl -pi -e '$$_ = "" if m/ROLLCOMPILER/' $$o; \
+	done
+	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
 
 clean::
 	rm -f _arch bootstrap.py
 
 cvsclean: clean
-	rm -fr RPMS SRPMS src/build*
+	for i in `ls nodes/*.in`; do \
+	  export o=`echo $$i | sed 's/\.in//'`; \
+	  rm -f $$o; \
+	done
+	rm -fr RPMS SRPMS
 
-distclean:: cvsclean clean
-	-rm -f _arch build.log
-	-rm -rf RPMS SRPMS
+distclean:: cvsclean
+	-rm -f build.log

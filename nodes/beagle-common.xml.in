@@ -15,7 +15,8 @@ All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 <changelog>
 </changelog>
 
-<package>beagle</package>
+<package>beagle_ROLLCOMPILER</package>
+<package>beagle-2.1_ROLLCOMPILER</package>
 <package>beagle-modules</package>
 
 </kickstart>

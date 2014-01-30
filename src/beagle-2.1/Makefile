@@ -54,6 +54,7 @@
 #
 # @Copyright@
 
+
 REDHAT.ROOT = $(PWD)/../../
 RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
 
@@ -82,7 +83,8 @@ ifeq ("$(ROLLCOMPILER)", "pgi")
   CXXCOMP = pgCC
 endif
 
-build: $(SRC_DIRS)
+
+build: $(SOURCE_DIR)
 	( \
           $(COMPILERSETUP); \
           export CPPFLAGS="-I/opt/gnu/include"; \
@@ -90,8 +92,8 @@ build: $(SRC_DIRS)
 	  export CFLAGS="$(COMPILE_FLAGS)"; \
 	  export CXX=$(CXXCOMP); \
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
-          patch $(SOURCE_DIR)/libhmsbeagle/CPU/Precision.h patch-files/Precision.h_CPU.patch; \
 	  cd $(SOURCE_DIR); \
+          ./autogen.sh; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib $(CONFIG_OPTIONS);  \
 	  make \
 	)
@@ -107,5 +109,12 @@ install::
 	)
 	umount $(PKGROOT)
 
+$(SOURCE_DIR):
+	( \
+            mkdir $(SOURCE_DIR); \
+            svn checkout http://beagle-lib.googlecode.com/svn/tags/beagle_release_2_1/ $(SOURCE_DIR) \
+        )
+	
+
 clean::
-	rm -rf $(SOURCE_DIR) intel
+	rm -rf $(SOURCE_DIR) intel .subversion .svn
