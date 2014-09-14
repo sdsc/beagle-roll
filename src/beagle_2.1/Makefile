@@ -55,23 +55,65 @@
 # @Copyright@
 #
 # $Log$
-PKGROOT = /opt/modulefiles/applications/beagle
-REDHAT.ROOT = $(CURDIR)/../../
+
+REDHAT.ROOT = $(PWD)/../../
+RPM.EXTRAS=%define __os_install_post /usr/lib/rpm/brp-compress
 
 -include $(ROCKSROOT)/etc/Rules.mk
-include Rules.mk
+include pull.mk
 
-build:
+CONFIG_OPTIONS = --enable-sse=yes --enable-openmp=no --disable-march-native
+CC = gcc
+CXX = g++
+COMPILE_FLAGS = -O3 -lstdc++
+ifeq ("$(ROLLCOMPILER)", "intel")
+  CC = icc
+  CXX = icpc
+  COMPILE_FLAGS = -xhost -lstdc++
+endif
+ifeq ("$(ROLLCOMPILER)", "pgi")
+  CC = pgcc
+  CXX = pgCC
+  COMPILE_FLAGS = -fast -lstdc++
+endif
+
+COMPILERSETUP = \
+  module load $(ROLLCOMPILER) || true; \
+  module load gnutools || true; \
+  echo === Compiler and version ===; \
+  $(CC) --version
+
+build: $(SRC_DIRS)
+	( \
+	  $(COMPILERSETUP); \
+	  export CPPFLAGS="-I$${GNUTOOLSHOME}/include"; \
+	  export CC=$(CC); \
+	  export CFLAGS="$(COMPILE_FLAGS)"; \
+	  export CXX=$(CXX); \
+	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
+	  cd $(SOURCE_DIR); \
+	  ./autogen.sh; \
+	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib \
+	              $(CONFIG_OPTIONS); \
+	  make \
+	)
 
 install::
-	mkdir -p $(ROOT)/$(PKGROOT)
-	for V in 1.1 2.1; do \
-	  cp *.module $(ROOT)/$(PKGROOT)/$$V; \
-	  cp *.version $(ROOT)/$(PKGROOT)/.version.$$V; \
-	  perl -pi -e "s#VERSION#$$V#g" $(ROOT)/$(PKGROOT)/$$V; \
-	  perl -pi -e "s#VERSION#$$V#g" $(ROOT)/$(PKGROOT)/.version.$$V; \
-	  perl -pi -e "s#ROLLCOMPILER#$(ROLLCOMPILER)#g" $(ROOT)/$(PKGROOT)/$$V; \
-	done
-	ln -s $(PKGROOT)/.version.1.1 $(ROOT)/$(PKGROOT)/.version
+        # Using a bind mount appears to be the only way to prevent the build
+        # from incorporating $(ROOT) in binary files.
+	mkdir -p -m 755 $(ROOT)/$(PKGROOT)
+	-mkdir -p -m 755 $(PKGROOT)
+	mount --bind $(ROOT)/$(PKGROOT) $(PKGROOT)
+	( \
+	  $(COMPILERSETUP); \
+	  cd $(SOURCE_DIR); \
+	  make install \
+	)
+	umount $(PKGROOT)
+	-rmdir -p $(PKGROOT)
+	cd $(ROOT)/$(PKGROOT)/include && ln -s libhmsbeagle-2/libhmsbeagle .
+	cp -r $(SOURCE_DIR)/examples $(ROOT)/$(PKGROOT)/
+	rm -f `find $(ROOT)/$(PKGROOT)/examples -name Makefile\*`
 
 clean::
+	rm -rf $(SOURCE_DIR)
