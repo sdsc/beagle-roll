@@ -35,11 +35,9 @@ SKIP: {
 
   skip 'beagle roll not installed', 6 if ! $isInstalled;
 
-  # TODO test s/w
   $output = `bash $TESTFILE.sh 2>&1`;
   like($output, qr/-1574/, 'beagle example run');
 
-  skip 'modules not installed', 5 if ! -f '/etc/profile.d/modules.sh';
   `/bin/ls /opt/modulefiles/applications/beagle/1.1 2>&1`;
   ok($? == 0, 'beagle 1.1. module installed');
   `/bin/ls /opt/modulefiles/applications/beagle/.version.1.1 2>&1`;
