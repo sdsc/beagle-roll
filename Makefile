@@ -73,7 +73,7 @@ default:
 	    COMPILERNAME=`echo $$c | awk -F/ '{print $$1}'`; \
 	    perl -pi -e 'print and s/COMPILERNAME/'$${COMPILERNAME}'/g if m/COMPILERNAME/' $$o; \
 	  done; \
-	  perl -pi -e '$$_ = "" if m/ROLLCOMPILER/' $$o; \
+	  perl -pi -e '$$_ = "" if m/COMPILERNAME/' $$o; \
 	done
 	$(MAKE) ROLLCOMPILER="$(ROLLCOMPILER)" roll
 
