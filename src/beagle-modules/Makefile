@@ -14,9 +14,11 @@ install::
 	for V in $(VERSION) $(ADD_VERSION); do \
 	  cp *.module $(ROOT)/$(PKGROOT)/$$V; \
 	  cp *.version $(ROOT)/$(PKGROOT)/.version.$$V; \
-	  perl -pi -e 's#ROLLCOMPILER#$(ROLLCOMPILER)#g;' \
+	  perl -pi -e 's#COMPILERNAME#$(COMPILERNAME)#g;' \
+	           -e 's#ROLLCOMPILER#$(ROLLCOMPILER)#g;' \
 	           -e 's#ROLLMPI#$(ROLLMPI)#g;' \
 	           -e 's#ROLLNETWORK#$(ROLLNETWORK)#g;' \
+	           -e 's#ROLLPY#$(ROLLPY)#g;' \
 	           -e "s#VERSION#$$V#g;" \
 	    $(ROOT)/$(PKGROOT)/.version.$$V $(ROOT)/$(PKGROOT)/$$V; \
 	done

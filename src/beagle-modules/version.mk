@@ -1,8 +1,11 @@
-NAME        = beagle-modules
-RELEASE     = 1
-PKGROOT     = /opt/modulefiles/applications/beagle
+PACKAGE     = beagle
+CATEGORY    = applications
 
-VERSION_SRC = $(REDHAT.ROOT)/src/beagle_1.1/version.mk
+NAME        = $(PACKAGE)-modules
+RELEASE     = 2
+PKGROOT     = /opt/modulefiles/$(CATEGORY)/$(PACKAGE)
+
+VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)_1.1/version.mk
 VERSION_INC = version.inc
 include $(VERSION_INC)
 
