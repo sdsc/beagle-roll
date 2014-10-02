@@ -11,7 +11,7 @@ VERSION        = 2.1
 RELEASE        = 3
 PKGROOT        = /opt/beagle/$(VERSION)
 
-SRC_SUBDIR     = beagle-2.1
+SRC_SUBDIR     = beagle
 
 SOURCE_NAME    = beagle
 SOURCE_SUFFIX  = tar.gz
