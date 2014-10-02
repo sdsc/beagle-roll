@@ -7,11 +7,11 @@ endif
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
 NAME           = beagle_$(VERSION)_$(ROLLCOMPILER)
-VERSION        = 1.1
-RELEASE        = 0
+VERSION        = 2.1
+RELEASE        = 3
 PKGROOT        = /opt/beagle/$(VERSION)
 
-SRC_SUBDIR     = beagle
+SRC_SUBDIR     = beagle-2.1
 
 SOURCE_NAME    = beagle
 SOURCE_SUFFIX  = tar.gz
