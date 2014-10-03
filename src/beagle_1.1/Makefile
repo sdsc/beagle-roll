@@ -83,6 +83,17 @@ COMPILERSETUP = \
   echo === Compiler and version ===; \
   $(CC) --version
 
+LICENSE: $(SRC_DIRS)
+	cat $(SOURCE_DIR)/libhmsbeagle/beagle.cpp | tr '\n' ' ' | \
+	  grep -q 'GNU Lesser General Public License.*version 3.*or.*later'; \
+	if test $$? -eq 0; then \
+	  echo LGPLv3+ > $@; \
+	else \
+	  exit 2; \
+	fi
+
+$(NAME).spec: LICENSE
+
 build: $(SRC_DIRS)
 	patch $(SOURCE_DIR)/libhmsbeagle/CPU/Precision.h patch-files/Precision.h_CPU.patch
 	( \
@@ -116,4 +127,4 @@ install::
 	rm -f `find $(ROOT)/$(PKGROOT)/examples -name Makefile\*`
 
 clean::
-	rm -rf $(SOURCE_DIR)
+	rm -rf $(SOURCE_DIR) LICENSE
