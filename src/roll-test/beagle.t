@@ -38,14 +38,10 @@ SKIP: {
   $output = `bash $TESTFILE.sh 2>&1`;
   like($output, qr/-1574/, 'beagle example run');
 
-  `/bin/ls /opt/modulefiles/applications/beagle/1.1 2>&1`;
-  ok($? == 0, 'beagle 1.1. module installed');
-  `/bin/ls /opt/modulefiles/applications/beagle/.version.1.1 2>&1`;
-  ok($? == 0, 'beagle 1.1 version module installed');
-  `/bin/ls /opt/modulefiles/applications/beagle/2.1 2>&1`;
-  ok($? == 0, 'beagle 2.1. module installed');
-  `/bin/ls /opt/modulefiles/applications/beagle/.version.2.1 2>&1`;
-  ok($? == 0, 'beagle 2.1 version module installed');
+  `/bin/ls /opt/modulefiles/applications/beagle/[0-9]* 2>&1`;
+  ok($? == 0, 'beagle module installed');
+  `/bin/ls /opt/modulefiles/applications/beagle/.version.[0-9]* 2>&1`;
+  ok($? == 0, 'beagle version module installed');
   ok(-l '/opt/modulefiles/applications/beagle/.version',
      'beagle version module link created');
 
