@@ -1,2 +1,0 @@
-Precision.h_CPU.patch
-  Added #include <string.h> to fix undefined memcpy error
