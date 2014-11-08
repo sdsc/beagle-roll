@@ -1,14 +1,11 @@
-# Note: normally this package is built with a single compiler, and the rpms
-# from multiple compiler builds will overwrite each other.
-
 ifndef ROLLCOMPILER
   ROLLCOMPILER = gnu
 endif
 COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
-NAME           = beagle_$(VERSION)_$(ROLLCOMPILER)
+NAME           = sdsc-beagle
 VERSION        = 2.1
-RELEASE        = 3
+RELEASE        = 4
 PKGROOT        = /opt/beagle/$(VERSION)
 
 SRC_SUBDIR     = beagle

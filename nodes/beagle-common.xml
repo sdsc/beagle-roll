@@ -10,7 +10,8 @@ Copyright (c) 2000 - 2014 The Regents of the University of California.
 All rights reserved. Rocks(r) v5.1 www.rocksclusters.org
 </copyright>
 
-<package>beagle_ROLLCOMPILER</package>
-<package>beagle-modules</package>
+<package>sdsc-beagle</package>
+<package>sdsc-beagle-modules</package>
+<package>sdsc-beagle-roll-test</package>
 
 </kickstart>

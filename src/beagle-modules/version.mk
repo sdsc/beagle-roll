@@ -1,8 +1,8 @@
 PACKAGE     = beagle
 CATEGORY    = applications
 
-NAME        = $(PACKAGE)-modules
-RELEASE     = 3
+NAME        = sdsc-$(PACKAGE)-modules
+RELEASE     = 4
 PKGROOT     = /opt/modulefiles/$(CATEGORY)/$(PACKAGE)
 
 VERSION_SRC = $(REDHAT.ROOT)/src/$(PACKAGE)/version.mk
