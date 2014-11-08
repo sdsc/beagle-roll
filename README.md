@@ -25,7 +25,7 @@ development machine.
 
 ## Dependencies
 
-Unknown at this time.
+None.
 
 
 ## Building
@@ -54,17 +54,6 @@ software, e.g.,
 The build process recognizes "gnu", "intel" or "pgi" as the value for the
 `ROLLCOMPILER` variable.  The default value is "gnu".
 
-The value of the `ROLLCOMPILER` variable is incorporated into
-the names of the produced rpms.  For example,
-
-```shell
-make ROLLCOMPILER=intel 2>&1 | tee build.log
-```
-
-produces a roll containing an rpm with a name that begins
-`beagle_intel`.
-
-
 
 ## Installation
 
@@ -82,7 +71,7 @@ In addition to the software itself, the roll installs BEAGLE environment module
 files in:
 
 ```shell
-/opt/modulefiles/applications/beagle.
+/opt/modulefiles/applications/beagle
 ```
 
 
