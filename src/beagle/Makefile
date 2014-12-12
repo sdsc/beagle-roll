@@ -83,9 +83,7 @@ DESCRIPTION:
 	) > $@
 
 LICENSE: $(SRC_DIRS)
-	if ! grep -qF 'GNU GENERAL PUBLIC LICENSE' $(LICENSE_FILES); then \
-	  exit 2; \
-	fi
+	$(CHECK_LICENSE_FILES)
 	echo GPL > $@
 
 build: $(SRC_DIRS)
