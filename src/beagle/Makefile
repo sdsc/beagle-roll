@@ -71,8 +71,6 @@ else ifeq ("$(ROLLCOMPILER)", "pgi")
   COMPILE_FLAGS = -fast -lstdc++
 endif
 
-LICENSE_FILES = $(SOURCE_DIR)/COPYING
-
 $(NAME).spec: DESCRIPTION LICENSE
 
 DESCRIPTION:
