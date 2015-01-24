@@ -33,9 +33,6 @@ rolls are available, but it will build without them as long as the environment
 variables they provide are otherwise defined.
 
 
-None.
-
-
 ## Building
 
 To build the beagle-roll, execute this on a Rocks development
