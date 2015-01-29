@@ -9,3 +9,4 @@ setenv BEAGLE_HOME $beaglehome
 setenv BEAGLE_LIB $beaglehome/lib
 prepend-path LD_LIBRARY_PATH $beaglehome/lib
 prepend-path LIBPATH $beaglehome/lib
+module load ROLLCOMPILER

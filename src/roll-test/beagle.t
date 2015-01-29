@@ -19,7 +19,7 @@ my %CXX = ('gnu' => 'g++', 'intel' => 'icpc', 'pgi' => 'pgCC');
 open(OUT, ">$TESTFILE.sh");
 print OUT <<END;
 #!/bin/bash
-module load ROLLCOMPILER beagle
+module load beagle
 $CXX{"ROLLCOMPILER"} -o${TESTFILE}.exe \${BEAGLE_HOME}/examples/matrixtest/matrixtest.cpp -I\${BEAGLE_HOME}/include \${BEAGLE_HOME}/lib/libhmsbeagle.so
 ./${TESTFILE}.exe
 END
