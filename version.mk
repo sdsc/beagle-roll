@@ -1,5 +1,6 @@
-ROLLNAME = beagle
-RELEASE  = 3
-COLOR    = orange
+ROLLNAME        = beagle
+VERSION        :=$(shell bash version.sh -v)
+RELEASE        :=$(shell bash version.sh -h)
+COLOR           = orange
 
-REDHAT.ROOT = $(PWD)
+REDHAT.ROOT     = $(PWD)
