@@ -85,6 +85,8 @@ LICENSE: $(SRC_DIRS)
 	echo GPL > $@
 
 build: $(SRC_DIRS)
+	patch $(SOURCE_DIR)/project/beagle-vs-2012/cuda-kernels/cuda-kernels.vcxproj patch-files/cuda-kernels.vcxproj.patch
+	patch $(SOURCE_DIR)/libhmsbeagle/GPU/kernels/Makefile.am patch-files/Makefile.am.patch
 	( \
 	  $(MODULE_LOAD_CC); \
 	  export CPPFLAGS="-I$${GNUTOOLSHOME}/include"; \
