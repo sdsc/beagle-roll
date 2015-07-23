@@ -78,6 +78,7 @@ DESCRIPTION:
 	( \
 	  $(DESCRIBE_PKG); \
 	  $(DESCRIBE_CC) \
+	  $(DESCRIBE_CUDA) \
 	) > $@
 
 LICENSE: $(SRC_DIRS)
@@ -89,6 +90,7 @@ build: $(SRC_DIRS)
 	patch $(SOURCE_DIR)/libhmsbeagle/GPU/kernels/Makefile.am patch-files/Makefile.am.patch
 	( \
 	  $(MODULE_LOAD_CC); \
+	  $(MODULE_LOAD_CUDA); \
 	  export CPPFLAGS="-I$${GNUTOOLSHOME}/include"; \
 	  export CC=$(CC); \
 	  export CFLAGS="$(COMPILE_FLAGS)"; \
@@ -97,6 +99,7 @@ build: $(SRC_DIRS)
 	  cd $(SOURCE_DIR); \
 	  ./autogen.sh; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib \
+                      --enable-emu --with-cuda=$${CUDAHOME}  \
 	              $(CONFIG_OPTIONS); \
 	  make \
 	)

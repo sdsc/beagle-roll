@@ -5,7 +5,7 @@ COMPILERNAME := $(firstword $(subst /, ,$(ROLLCOMPILER)))
 
 NAME           = sdsc-beagle
 VERSION        = 2.1
-RELEASE        = 4
+RELEASE        = 5
 PKGROOT        = /opt/beagle/$(VERSION)
 
 SRC_SUBDIR     = beagle
