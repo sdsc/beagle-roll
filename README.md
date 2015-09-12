@@ -59,6 +59,9 @@ software, e.g.,
 The build process recognizes "gnu", "intel" or "pgi" as the value for the
 `ROLLCOMPILER` variable.  The default value is "gnu".
 
+This roll also supports the `ROLLOPTS` make variable.  If it contains 'cuda',
+options are passed to the build to produce beagle with CUDA support.
+
 
 ## Installation
 

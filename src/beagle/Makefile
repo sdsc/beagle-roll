@@ -71,6 +71,12 @@ else ifeq ("$(ROLLCOMPILER)", "pgi")
   COMPILE_FLAGS = -fast -lstdc++
 endif
 
+USE_CUDA_MODULE = false
+ifneq ("$(ROLLOPTS)", "$(subst cuda,,$(ROLLOPTS))")
+  USE_CUDA_MODULE = true
+  CONFIG_OPTIONS += --with-cuda=$${CUDAHOME}
+endif
+
 $(NAME).spec: DESCRIPTION LICENSE
 
 DESCRIPTION:
@@ -78,8 +84,10 @@ DESCRIPTION:
 	( \
 	  $(DESCRIBE_PKG); \
 	  $(DESCRIBE_CC) \
-	  $(DESCRIBE_CUDA) \
 	) > $@
+	if test "$(USE_CUDA_MODULE)" = "true"; then \
+	  $(DESCRIBE_CUDA) >> $@; \
+	fi
 
 LICENSE: $(SRC_DIRS)
 	$(CHECK_LICENSE_FILES)
@@ -90,8 +98,9 @@ build: $(SRC_DIRS)
 	patch $(SOURCE_DIR)/libhmsbeagle/GPU/kernels/Makefile.am patch-files/Makefile.am.patch
 	( \
 	  $(MODULE_LOAD_CC); \
-	  $(MODULE_LOAD_CUDA); \
-	  export CPPFLAGS="-I$${GNUTOOLSHOME}/include"; \
+	  if test "$(USE_CUDA_MODULE)" = "true"; then \
+	    $(MODULE_LOAD_CUDA); \
+	  fi; \
 	  export CC=$(CC); \
 	  export CFLAGS="$(COMPILE_FLAGS)"; \
 	  export CXX=$(CXX); \
@@ -99,8 +108,7 @@ build: $(SRC_DIRS)
 	  cd $(SOURCE_DIR); \
 	  ./autogen.sh; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib \
-                      --enable-emu --with-cuda=$${CUDAHOME}  \
-	              $(CONFIG_OPTIONS); \
+                      --enable-emu $(CONFIG_OPTIONS); \
 	  make \
 	)
 
