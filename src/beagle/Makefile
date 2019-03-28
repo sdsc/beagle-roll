@@ -93,8 +93,7 @@ LICENSE: $(SRC_DIRS)
 	echo GPL > $@
 
 build: $(SRC_DIRS)
-	patch $(SOURCE_DIR)/project/beagle-vs-2012/cuda-kernels/cuda-kernels.vcxproj patch-files/cuda-kernels.vcxproj.patch
-	patch $(SOURCE_DIR)/libhmsbeagle/GPU/kernels/Makefile.am patch-files/Makefile.am.patch
+	patch $(SOURCE_DIR)/configure.ac patch-files/configure.ac.patch
 	( \
 	  $(MODULE_LOAD_CC); \
 	  if test "$(USE_CUDA_MODULE)" = "true"; then \
@@ -106,6 +105,8 @@ build: $(SRC_DIRS)
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
 	  cd $(SOURCE_DIR); \
 	  ./autogen.sh; \
+          dir=`dirname \`which javac\``; \
+          export JAVA_HOME=$$dir/..; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib \
                       --enable-emu $(CONFIG_OPTIONS); \
 	  make \
@@ -122,7 +123,7 @@ install::
 	  make install \
 	)
 	$(PKGROOT_BIND_UMOUNT)
-	cd $(ROOT)/$(PKGROOT)/include && ln -s libhmsbeagle-2/libhmsbeagle .
+	cd $(ROOT)/$(PKGROOT)/include && ln -s libhmsbeagle-1/libhmsbeagle .
 	cp -r $(SOURCE_DIR)/examples $(ROOT)/$(PKGROOT)/
 	rm -f `find $(ROOT)/$(PKGROOT)/examples -name Makefile\*`
 
