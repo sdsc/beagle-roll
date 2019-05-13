@@ -35,9 +35,9 @@ variables they provide are otherwise defined.
 
 The beagle roll requires the presence of the java runtime environment and the java compiler. If neither is installed, running:
 
-
-yum install java-1.8.0-openjdk-devel
-
+```shell
+% yum install java-1.8.0-openjdk-devel
+```
 
 for example will install both (that is the "java" and "javac" executables).
 
