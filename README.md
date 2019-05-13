@@ -33,6 +33,22 @@ rolls are available, but it will build without them as long as the environment
 variables they provide are otherwise defined.
 
 
+The beagle roll requires the presence of the java runtime environment and the java compiler. If neither is installed, running:
+
+
+yum install java-1.8.0-openjdk-devel
+
+
+for example will install both (that is the "java" and "javac" executables).
+
+One should also be aware that if the java runtime environment ( e.g. java-1.8.0-openjdk) is installed but the java compiler is not, one should install the correct devel package.
+
+For example, if java-1.8.0-openjdk is already installed, then one should install java-1.8.0-openjdk-devel as above.
+
+Also note that if a particular java environment is installed (e.g. java-1.8.0-openjdk) and a different centos yum package (such as java-11-openjdk) is then installed without removing the previous one, then the exising links to "java" and "javac" will still point to the executables from the first package that was installed.
+
+In contrast, if the the oracle java rpm is downloaded and installed (such as jdk-12.0.1_linux-x64_bin.rpm), then the links to /bin/java and /bin/javac will be overwritten and point to the jdk-12 executables.
+
 ## Building
 
 To build the beagle-roll, execute this on a Rocks development
