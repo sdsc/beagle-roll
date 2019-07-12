@@ -1,0 +1,11 @@
+--- beagle-lib-3.1.2/configure.ac	2018-12-03 14:26:13.000000000 -0800
++++ patch-files/configure.ac	2019-04-01 13:56:57.246387242 -0700
+@@ -258,7 +258,7 @@
+ fi
+ if test x$EMULATION = xtrue
+ then
+-   NVCCFLAGS+=" -deviceemu"
++   NVCCFLAGS+=" "
+ fi
+ 
+ # do not warn about deprecated GPU architectures
