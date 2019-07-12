@@ -105,7 +105,8 @@ build: $(SRC_DIRS)
 	  export CXXFLAGS="$(COMPILE_FLAGS)"; \
 	  cd $(SOURCE_DIR); \
 	  ./autogen.sh; \
-          dir=`dirname \`which javac\``; \
+          javacpath=`readlink -f \`which javac\``; \
+          dir=`dirname $$javacpath`; \
           export JAVA_HOME=$$dir/..; \
 	  ./configure --prefix=$(PKGROOT) --libdir=$(PKGROOT)/lib \
                       --enable-emu $(CONFIG_OPTIONS); \
